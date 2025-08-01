@@ -10,21 +10,21 @@ where movie_id = 1
 select * from movies
 where movie_id = '1'
 
---3. USe Explicit Conversion
+--3. Use Explicit Conversion
 
 select * from movies
 where movie_id = integer'1'
 
---4. string to integer Conversion
+--4. String to integer Conversion
 
 select cast('10' as integer)
 
---5. string to date Conversion
+--5. String to date Conversion
 
 select cast('2020-01-01' as date)
 select cast('01-MAY-2020' as date)
 
---6. string to boolean Conversion
+--6. String to boolean Conversion
 
 select cast('true' as boolean)
 select cast('false' as boolean)
@@ -35,7 +35,7 @@ select
 	cast('0' as boolean),
 	cast('1' as boolean)
 
---7. string to double Conversion
+--7. String to double Conversion
 
 select 
 	cast('14.788' as double precision),
@@ -47,12 +47,12 @@ select
 	'10' :: integer,
 	'2020-01-01' :: date
 
---9. string to timestamp Conversion
+--9. String to timestamp Conversion
 
 select '2020-01-01 10:30:25.407' :: timestamp
 select '2020-01-01 10:30:25.407' :: timestamptz
 
---10. string to interval Conversion
+--10. String to interval Conversion
 
 select 
 	'10 minutes' :: interval,
@@ -65,7 +65,7 @@ select
 
 select factorial(5) as result;
 
---12. integer to bigint
+--12. Integer to bigint
 
 select factorial(cast(5 as bigint)) as result
 
@@ -74,7 +74,7 @@ select factorial(cast(5 as bigint)) as result
 select round(10,4)
 select round(cast(5 as numeric),4) as result
 
---14. cast with text
+--14. Cast with text
 
 select substr('12345',2) as result
 
@@ -84,26 +84,26 @@ select
  
  
 -- TABLE DATA CONVERSION
---15. create a table called 'ratings' with initial data as character
+--15. Create a table called 'ratings' with initial data as character
  
 create table ratings(
 	rating_id serial primary key,
 	rating varchar(1) not null
 );
  
---16. let's insert some data
+--16. Insert some data
  
 insert into ratings (rating) values ('A'),('B'),('C'),('D')
  
 select * from ratings
  
---17. now rating want in integer
+--17. Want Rating in integer
  
 insert into ratings (rating) values (1),(2),(3),(4);
  
 select * from ratings;
  
---18. now, we have to convert all values in the rating column into integers
+--18. Convert all values in the rating column into integers
  
 select rating_id,
 	case when rating~E'^\\d+$' then 
@@ -111,62 +111,3 @@ select rating_id,
 	else 0
 	end as rating
 from ratings
-
---19.  convert integer into string
- 
-select to_char(100870,'9,9999');
- 
---20. view movie  release  data in DD-MM-YYYY format
- 
-select release_date,TO_CHAR(release_date, 'DD-MM-YYYY'),TO_CHAR(release_date, 'Dy, MM, YYYY')
-from movies;
- 
---21. convertig timestamp literal to a string
- 
-select TO_CHAR(timestaMp '2020-01-01 10:30:45','HH24:MI:SS');
- 
---22. Adding currency symbol to say movie revenues
-
-select * from movies_revenues
- 
-select movie_id,revenues_domestic,TO_CHAR(revenues_domestic, '$99999D99')
-from movies_revenues;
- 
--- TO_NUMBER
---23. convert a string to a number
- 
-select TO_NUMBER('1456.76','9999.')
-select TO_NUMBER('10,654.78-','99G999D99S')
- 
---24. formating
- 
-select to_number('$1,423.65','L9G999D99')
-select to_number('1,234,546.89','9G999g999')
-select to_number('1,234,432.88','9G999g999D99')
- 
---25. converting say money number
- 
-select to_number('1,987,288.87','L9G999g999.99')
- 
---26. string to date
- 
-select TO_DATE('2020/10/22','YYYY/MM/DD')
-select TO_DATE('022199','MMDDYY')
-SELECT TO_DATE('March 07, 1999','Month DD, YYYY')
- 
---27. Error Handling
- 
-select TO_DATE('2020/10/30','YYYY/MM/DD')
- 
---28. To timestamp
- 
-select to_timestamp('2020-10-28 10:30:23','YYYY-MM-DD HH:MI:SS')
- 
---29. It skip spaces
- 
-select to_timestamp('2020 may', 'YYYY MON');
- 
---30. minimal erro is checking!!
- 
-select to_timestamp('2020-01-01 22:8:00','YYYY-MM-DD HH24:MI:SS');
- 
