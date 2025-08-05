@@ -1,6 +1,7 @@
 -- ---------------------------------------------------
 --  Records of 'movies' database > table : movies
 -- ---------------------------------------------------
+
 INSERT INTO movies (movie_name,movie_length,movie_lang,release_date,age_certificate,director_id) VALUES
 ('A Clockwork Orange','112','English','1972-02-02','18','13'),
 ('Apocalypse Now','168','English','1979-08-15','15','9'),

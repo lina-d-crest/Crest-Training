@@ -37,6 +37,7 @@ create table movies (
 	director_id int references directors (director_id)
 );
 
+
 -- Create Customer movies_revenues
 
 create table movies_revenues (
@@ -57,4 +58,3 @@ create table movies_actors (
 );
 
 select * from movies_actors;
-
