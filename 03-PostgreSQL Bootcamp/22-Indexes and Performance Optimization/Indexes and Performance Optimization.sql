@@ -206,4 +206,32 @@ select
 	from pg_class c join pg_index i on c.oid = i.indrelid
 	where c.relname = 't_big';
 
+select 
+	oid,relname,relpages,reltuples,
+	i.indisunique,i.indisclustered,i.indisvalid,
+	pg_catalog.pg_get_indexdef(i.indexrelid,0,true)
+	from pg_class c join pg_index i on c.oid = i.indrelid
+	where c.relname = 'orders';
+select * from orders;
+ 
+explain select * from orders where ship_country = 'USA';
+ 
+--17. Disallow the query optimizer
 
+update pg_index 
+set indisvalid = false
+where indexrelid = (select oid from pg_class
+					where relkind = 'i'
+					and relname = 'idx_orders_ship_country');
+ 
+update pg_index 
+set indisvalid = true
+where indexrelid = (select oid from pg_class
+					where relkind = 'i'
+					and relname = 'idx_orders_ship_country');
+ 
+--18. Rebuilding an index
+ 
+reindex  index idx_orders_customer_id_order_id;
+reindex (verbose) database postgres;
+reindex (verbose) table concurrently orders;
