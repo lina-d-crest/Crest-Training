@@ -76,8 +76,14 @@ tools = [{"type": "function", "function": record_user_details_json},
 class Me:
 
     def __init__(self):
-        self.openai = OpenAI()
-        self.name = "Ed Donner"
+        api_key = os.getenv("OPENAI_API_KEY")
+        print("DEBUG OPENAI_API_KEY:", repr(api_key), "LEN =", 0 if api_key is None else len(api_key))
+
+        if not api_key:
+            raise RuntimeError("OPENAI_API_KEY is not set or is empty INSIDE the app environment")
+            
+        self.openai = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        self.name = "Lina"
         reader = PdfReader("me/linkedin.pdf")
         self.linkedin = ""
         for page in reader.pages:
